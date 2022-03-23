@@ -1,0 +1,61 @@
+__author__ = "Michael Haldimann"
+__version__ = "0.1"
+__email__ = "ham11@bfh.ch"
+__status__ = "Testing"
+
+
+def checkError(code):
+    if code != 0:
+        print("ErrorCode:", code)
+
+        # General Errors
+        if code == -501:
+            print("Lost connection with controller (controller is not responding)")
+        elif code == -102:
+            print("Given handle is not valid.")
+        elif code == -106:
+            print("Error in reading parameters.")
+        elif code == -107:
+            print("ZBMOC_E_IS_BUSY")
+        elif code == -109:
+            print("ZBMOC_E_BADID")
+        elif code == -110:
+            print("ZBMOC_E_NOCONTROLLER")
+        elif code == -129:
+            print("Connection(probably USB) is pending.")
+
+        #VLT-specific error messages
+        elif code == -233:
+            print("ZBMOC_E_VLT_LOSTCONNECTION")
+
+        # COM port specific error messages
+        elif code == -234:
+            print("ZBMOC_E_COM_ILLEGALPORT")
+        elif code == -235:
+            print("ZBMOC_E_COM_OPENERROR")
+        elif code == -236:
+            print("ZBMOC_E_COM_TXERROR")
+        elif code == -237:
+            print("ZBMOC_E_COM_TIMEOUT")
+        elif code == -238:
+            print("ZBMOC_E_COM_ERROR")
+
+        # CANopen error message
+        elif code == -261:
+            print("ZBMOC_E_USB_CONNECT_FAILED")
+
+        # TCP error messages
+        elif code == -281:
+            print(" Invalid TCP/IP address.")
+        elif code == -282:
+            print("A TCP/IP socket error has occured")
+        elif code == -283:
+            print("Connection dropped by Server")
+        elif code == -284:
+            print("Connection was previously dropped")
+        elif code == -285:
+            print("Invalid response length received. Connection dropped.")
+        elif code == -286:
+            print("Invalid command received by Server.")
+        else:
+            print("Error code not known. Look in the ZbMoc_Library.pdf file, chapter 6.")
