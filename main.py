@@ -37,6 +37,7 @@ class ZbMocOpenUsbParamS(ctypes.Structure):
                 ("flags", ctypes.c_uint), ("latency", ctypes.c_uint)]
 
 
+
 class ZbMocOpenTcpParamS(ctypes.Structure):
     _fields_ = [("local", ctypes.c_bool), ("address", ctypes.c_uint), ("port", ctypes.c_uint),
                 ("retry", ctypes.c_ushort), ("timeout", ctypes.c_uint), ("flags", ctypes.c_uint)]
@@ -74,8 +75,9 @@ if __name__ == "__main__":
 
 
     else:
+        # The ip address of the network interface card              
         paramsTCP = ZbMocOpenTcpParamS(c_bool(False), c_uint(169254754), ctypes.c_uint(23), c_ushort(1000),
-                                       c_uint(500), c_uint(8))
+                                       c_uint(500), c_uint(9))
         keyHandle = ctypes.c_short(MiniMACS.ZbMocOpenTcp(byref(paramsTCP)))
         print("KeyHandle:", keyHandle.value)
 
