@@ -75,18 +75,24 @@ if __name__ == "__main__":
 
 
     else:
-        # The ip address of the network interface card              
-        paramsTCP = ZbMocOpenTcpParamS(c_bool(False), c_uint(169254754), ctypes.c_uint(23), c_ushort(1000),
+        # The ip address of the MiniMACS from APOSS
+        paramsTCP = ZbMocOpenTcpParamS(c_bool(False), c_uint(16925454187), ctypes.c_uint(23), c_ushort(1000),
                                        c_uint(500), c_uint(9))
         keyHandle = ctypes.c_short(MiniMACS.ZbMocOpenTcp(byref(paramsTCP)))
         print("KeyHandle:", keyHandle.value)
 
+    # Connecting
+    # C-Implementation: SIGNED16 ZbMocConnect(UNSIGNED16 h, UNSIGNED16 id);
+    status = ctypes.c_short(MiniMACS.ZbMocConnect(keyHandle, MiniMACS_ID)).value
+    print("Status: ZbMocConnect: ")
+    checkError(status)
+    
     # Array for the values
     size = ctypes.c_int * 4
     array_reading = size(1)
     array_reading = size(-1, -1, -1, -1)
 
-    # Connecting
+    # Reading Values
     # C-Implementation: SIGNED16 ZbMocUserParamReadRaw(UNSIGNED16 h, UNSIGNED16 id, SIGNED32 *param, UNSIGNED16 first, UNSIGNED16 last);
     status = ctypes.c_short(
         MiniMACS.ZbMocUserParamReadRaw(keyHandle, MiniMACS_ID, byref(array_reading), ctypes.c_ushort(0),
@@ -115,4 +121,3 @@ if __name__ == "__main__":
 
     print("In:", seconds, "the ZbMocUserParamReadRaw could read:", counter, " times.")
     print("Reading takes in average:", (seconds / counter * 1000), "ms")
-
